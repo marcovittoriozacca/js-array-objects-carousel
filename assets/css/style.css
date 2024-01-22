@@ -21,6 +21,7 @@ img.smallone{
     font-size: 30px;
     background-color: rgba(255, 255, 255);
     left: 50%;
+    cursor: pointer;
 
 }
 

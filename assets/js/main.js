@@ -30,3 +30,38 @@ const images = [
         descrizione: 'Remnant II pits survivors of humanity against new deadly creatures and god-like bosses across terrifying worlds.',
     },
 ]
+
+const activePhoto = document.getElementById('activePhoto');
+const thumbnail = document.getElementById('thumbnail');
+
+const btnUp = document.querySelector('.btn-up');
+const btnDown = document.querySelector('.btn-down');
+
+active = 0;
+activePhoto.innerHTML = `<img class="bigone h-100 " src="${images[active].url}" alt="">`
+
+
+btnDown.addEventListener('click', function(){
+    active++;
+    if(active > 5){
+        active = 0;
+    }
+    activePhoto.innerHTML = `<img class="bigone h-100 " src="${images[active].url}" alt="">`
+})
+
+btnUp.addEventListener('click', function(){
+    active--;
+    if(active < 0){
+        active = 5;
+    }
+    activePhoto.innerHTML = `<img class="bigone h-100 " src="${images[active].url}" alt="">`
+})
+
+images.forEach(element => {
+    const thumbnailCreation = document.createElement('img')
+    thumbnailCreation.setAttribute('src', `${element.url}`)
+    thumbnailCreation.classList.add('smallone');
+    thumbnail.append(thumbnailCreation);    
+});
+
+
