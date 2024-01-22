@@ -31,3 +31,18 @@ img.smallone{
 .btn-down{
     bottom: 10px;
 }
+
+#title{
+top: 0;
+right: 0;
+left: 0;
+text-align: end;
+padding: 10px 20px 10px;
+}
+#description{
+    bottom: 0;
+    padding: 30px;
+}
+#description, #title{
+    background-color: rgba(255, 255, 255, 0.05);
+}

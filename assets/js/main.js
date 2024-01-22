@@ -51,7 +51,12 @@ const btnDown = document.querySelector('.btn-down');
 
 //variabile che determina quale immagine sarà visibile al centro + prima foto visibile nello slider
 active = 0;
-activePhoto.innerHTML = `<img class="bigone h-100 " src="${images[active].url}" alt="">`
+activePhoto.innerHTML += `<img class="bigone h-100 " src="${images[active].url}" alt="">`
+
+const titleHtml = document.getElementById('title');
+const descriptionHtml = document.getElementById('description');
+titleHtml.innerHTML = `${images[active].titolo}`;
+descriptionHtml.innerHTML = `${images[active].descrizione}`;
 
 //creazione delle thumbnail con evento al click per cambiare l'immagine principale
 images.forEach(element => {
@@ -62,8 +67,10 @@ images.forEach(element => {
 
     thumbnailImg.addEventListener('click', function(){
         
-        activePhoto.innerHTML = `<img class="bigone h-100 " src="${element.url}" alt="">`;
         active = element.index;
+        activePhoto.innerHTML = `<img class="bigone h-100 " src="${element.url}" alt="">`;
+        titleHtml.innerText = element.titolo;
+        descriptionHtml.innerText = element.descrizione;
     })
 
     thumbnail.append(thumbnailImg);    
@@ -77,6 +84,11 @@ btnDown.addEventListener('click', function(){
         active = 0;
     }
     activePhoto.innerHTML = `<img class="bigone h-100 " src="${images[active].url}" alt="">`;
+
+    titleHtml.innerText = images[active].titolo;
+    descriptionHtml.innerText = images[active].descrizione;
+    
+
 })
 //bottone per scorrere le immagini verso l'alto
 btnUp.addEventListener('click', function(){
@@ -85,6 +97,11 @@ btnUp.addEventListener('click', function(){
         active = 5;
     }
     activePhoto.innerHTML = `<img class="bigone h-100 " src="${images[active].url}" alt="">`;
+
+
+    titleHtml.innerText = images[active].titolo;
+    descriptionHtml.innerText = images[active].descrizione;
+
     
 })
 
