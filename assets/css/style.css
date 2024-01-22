@@ -1,0 +1,32 @@
+/* *{
+    border: 1px solid red;
+} */
+.carouselBox{
+    width: 1100px;
+    aspect-ratio: 2/1;
+}
+img.bigone{
+    width: 850px;
+    object-fit: cover;
+}
+img.smallone{
+    width: 100%;
+    height: calc(100% / 6);
+    object-fit: cover;
+    aspect-ratio: 3/1;
+}
+.btn-up,
+.btn-down{
+    transform: translate(-50%);
+    font-size: 30px;
+    background-color: rgba(255, 255, 255);
+    left: 50%;
+
+}
+
+.btn-up{
+    top: 10px;
+}
+.btn-down{
+    bottom: 10px;
+}
