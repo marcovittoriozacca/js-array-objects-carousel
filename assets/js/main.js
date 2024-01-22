@@ -43,18 +43,22 @@ const images = [
     },
 ]
 
+//elementi del DOM
 const activePhoto = document.getElementById('activePhoto');
 const thumbnail = document.getElementById('thumbnail');
+const descriptionHtml = document.getElementById('description');
+const titleHtml = document.getElementById('title');
+const autoplay = document.getElementById('autoplay');
+const start = document.getElementById('start');
+const stopBtn = document.getElementById('stop');
+const reverse = document.getElementById('reverse');
 
 const btnUp = document.querySelector('.btn-up');
 const btnDown = document.querySelector('.btn-down');
 
-//variabile che determina quale immagine sarà visibile al centro + prima foto visibile nello slider
+//variabile che determina quale immagine sarà visibile al centro + prima foto visibile nello slider. Al caricamento della pagina ci saranno gli elementi dell'array in posizione 0
 active = 0;
 activePhoto.innerHTML += `<img class="bigone h-100 " src="${images[active].url}" alt="">`
-
-const titleHtml = document.getElementById('title');
-const descriptionHtml = document.getElementById('description');
 titleHtml.innerHTML = `${images[active].titolo}`;
 descriptionHtml.innerHTML = `${images[active].descrizione}`;
 
@@ -65,10 +69,11 @@ images.forEach(element => {
     thumbnailImg.setAttribute('src', `${element.url}`);
     thumbnailImg.classList.add('smallone');
 
-    thumbnailImg.addEventListener('click', function(){
-        
+    thumbnailImg.addEventListener('click', function(){        
         active = element.index;
+
         activePhoto.innerHTML = `<img class="bigone h-100 " src="${element.url}" alt="">`;
+
         titleHtml.innerText = element.titolo;
         descriptionHtml.innerText = element.descrizione;
     })
@@ -76,35 +81,67 @@ images.forEach(element => {
     thumbnail.append(thumbnailImg);    
 });
 
-
 //bottone per scorrere le immagini verso il basso
 btnDown.addEventListener('click', function(){
     active++;
     if(active > 5){
         active = 0;
     }
-    activePhoto.innerHTML = `<img class="bigone h-100 " src="${images[active].url}" alt="">`;
-
-    titleHtml.innerText = images[active].titolo;
-    descriptionHtml.innerText = images[active].descrizione;
-    
-
+    sliderImage();
 })
+
 //bottone per scorrere le immagini verso l'alto
 btnUp.addEventListener('click', function(){
     active--;
     if(active < 0){
         active = 5;
     }
-    activePhoto.innerHTML = `<img class="bigone h-100 " src="${images[active].url}" alt="">`;
+    sliderImage();
+})
+//funzioni temporali
+let autoplayFunction;
+let reverseFunction;
 
+//autoplay function
+autoplay.addEventListener('click', function(){
+    clearInterval(reverseFunction);
 
-    titleHtml.innerText = images[active].titolo;
-    descriptionHtml.innerText = images[active].descrizione;
+    autoplayFunction = setInterval(() => {
+        active++
+        if(active > 5){
+            active = 0;
+        }
+        sliderImage();
+    }, 3000);
 
-    
+})
+
+//reverse function
+reverse.addEventListener('click', function(){
+    clearInterval(autoplayFunction);
+
+    reverseFunction = setInterval(() => {
+        active--
+        if(active < 0){
+            active = 5;
+        }
+        sliderImage();
+        
+    }, 3000);
+    reverse.setAttribute('')
 })
 
 
+stopBtn.addEventListener('click', function(){
+    clearInterval(autoplayFunction);
+    clearInterval(reverseFunction);
+    flag = false;
+})
 
+//funziona che genera nel DOM le immagini
+function sliderImage(){
+    activePhoto.innerHTML = `<img class="bigone h-100 " src="${images[active].url}" alt="">`;
+    titleHtml.innerText = images[active].titolo;
+    descriptionHtml.innerText = images[active].descrizione;
+}
 
