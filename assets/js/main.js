@@ -57,15 +57,16 @@ images.forEach((element, index) => {
     thumbnailImg.setAttribute('src', `${element.url}`);
     thumbnailImg.classList.add('smallone');
 
-    thumbnailImg.addEventListener('click', function(){        
-        active = index;
-
-        activePhoto.innerHTML = `<img class="bigone h-100 " src="${element.url}" alt="">`;
-
-        titleHtml.innerText = element.titolo;
-        descriptionHtml.innerText = element.descrizione;
+    thumbnailImg.addEventListener('click', function(){   
+        if(active != index){
+            active = index;
+            activePhoto.innerHTML = `<img class="bigone h-100 " src="${element.url}" alt="">`;
+            titleHtml.innerText = element.titolo;
+            descriptionHtml.innerText = element.descrizione;
+            
+        }        
     })
-    thumbnail.append(thumbnailImg);    
+    thumbnail.append(thumbnailImg);
 });
 
 //bottone per scorrere le immagini verso il basso
@@ -92,7 +93,7 @@ autoplay.addEventListener('click', function(){
     autoplayFunction = setInterval(() => {
         nextImage()
         sliderImage();
-    }, 1000);
+    }, 3000);
     return playFlag = true;
     
 })
@@ -106,7 +107,7 @@ reverse.addEventListener('click', function(){
         previousImage()
         sliderImage();
 
-    }, 1000);
+    }, 3000);
     return playFlag = false;
     
 })
@@ -123,13 +124,13 @@ start.addEventListener('click', function(){
     
             autoplayFunction = setInterval(() => {
                 nextImage()
-            }, 1000);
+            }, 3000);
         }else{
             clearBothInterval()
     
             reverseFunction = setInterval(() => {
                 previousImage()
-            }, 1000);
+            }, 3000);
         }
     }
 })
