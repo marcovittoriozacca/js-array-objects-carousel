@@ -50,6 +50,7 @@ activePhoto.innerHTML += `<img class="bigone h-100 " src="${images[active].url}"
 titleHtml.innerHTML = `${images[active].titolo}`;
 descriptionHtml.innerHTML = `${images[active].descrizione}`;
 
+
 //creazione delle thumbnail con evento al click per cambiare l'immagine principale
 images.forEach((element, index) => {
 
@@ -57,13 +58,19 @@ images.forEach((element, index) => {
     thumbnailImg.setAttribute('src', `${element.url}`);
     thumbnailImg.classList.add('smallone');
 
-    thumbnailImg.addEventListener('click', function(){   
+    if(index === 0){
+        thumbnailImg.classList.add('activeImageOpacity');
+    }
+
+    thumbnailImg.addEventListener('click', function(){
+        const arrayThumb = document.querySelectorAll('#thumbnail img');
+        arrayThumb[active].classList.remove('activeImageOpacity')
         if(active != index){
             active = index;
             activePhoto.innerHTML = `<img class="bigone h-100 " src="${element.url}" alt="">`;
+            arrayThumb[active].classList.add('activeImageOpacity')
             titleHtml.innerText = element.titolo;
-            descriptionHtml.innerText = element.descrizione;
-            
+            descriptionHtml.innerText = element.descrizione; 
         }        
     })
     thumbnail.append(thumbnailImg);
@@ -71,13 +78,12 @@ images.forEach((element, index) => {
 
 //bottone per scorrere le immagini verso il basso
 btnDown.addEventListener('click', function(){
-    nextImage()
+    activeNextStatus()
 })
 
 //bottone per scorrere le immagini verso l'alto
 btnUp.addEventListener('click', function(){
-    previousImage()
-    sliderImage();
+    activePreviousStatus()
 })
 //funzioni temporali
 let autoplayFunction;
@@ -91,8 +97,7 @@ autoplay.addEventListener('click', function(){
     initialFlag = true;
 
     autoplayFunction = setInterval(() => {
-        nextImage()
-        sliderImage();
+        activeNextStatus()
     }, 3000);
     return playFlag = true;
     
@@ -104,9 +109,7 @@ reverse.addEventListener('click', function(){
     initialFlag = true;
 
     reverseFunction = setInterval(() => {
-        previousImage()
-        sliderImage();
-
+        activePreviousStatus()
     }, 3000);
     return playFlag = false;
     
@@ -123,13 +126,13 @@ start.addEventListener('click', function(){
             clearBothInterval();
     
             autoplayFunction = setInterval(() => {
-                nextImage()
+                activeNextStatus()
             }, 3000);
         }else{
             clearBothInterval()
     
             reverseFunction = setInterval(() => {
-                previousImage()
+                activePreviousStatus()
             }, 3000);
         }
     }
@@ -162,5 +165,17 @@ function previousImage(){
         active = images.length-1;
     }
     sliderImage();
+}
+function activeNextStatus(){
+    const arrayThumb = document.querySelectorAll('#thumbnail img');
+    arrayThumb[active].classList.remove('activeImageOpacity')
+    nextImage()
+    arrayThumb[active].classList.add('activeImageOpacity')
+}
+function activePreviousStatus(){
+    const arrayThumb = document.querySelectorAll('#thumbnail img');
+    arrayThumb[active].classList.remove('activeImageOpacity')
+    previousImage()
+    arrayThumb[active].classList.add('activeImageOpacity')
 }
 

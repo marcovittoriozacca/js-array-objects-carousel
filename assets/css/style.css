@@ -9,11 +9,16 @@ img.bigone{
     width: 850px;
     object-fit: cover;
 }
-img.smallone{
+.smallone{
     width: 100%;
     height: calc(100% / 6);
     object-fit: cover;
     aspect-ratio: 3/1;
+    cursor: pointer;
+    opacity: 0.7;
+}
+.activeImageOpacity{
+    opacity: 1;
 }
 .btn-up,
 .btn-down{
@@ -22,7 +27,7 @@ img.smallone{
     background-color: rgba(255, 255, 255);
     left: 50%;
     cursor: pointer;
-
+    z-index: 1;
 }
 
 .btn-up{
@@ -47,8 +52,4 @@ padding: 10px 20px 10px;
 }
 #description, #title{
     background-color: rgba(255, 255, 255, 0.05);
-}
-
-.border-active-thumbnail{
-    border: 5px solid gray;
 }
